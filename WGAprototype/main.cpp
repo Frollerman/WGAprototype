@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 
     QGridLayout* pgrdLayout = new QGridLayout;
     pgrdLayout->setContentsMargins(5, 5, 5, 5);
-    pgrdLayout->setSpacing(15);
+    pgrdLayout->setSpacing(5);
     pgrdLayout->addWidget(pcmdA, 0, 0);
     pgrdLayout->addWidget(pcmdB, 0, 1);
     pgrdLayout->addWidget(pcmdC, 1, 0);
