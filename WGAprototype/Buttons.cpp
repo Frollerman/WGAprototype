@@ -1,5 +1,6 @@
 #include <QtWidgets>
 #include "Buttons.h"
+#include <ctime>
 
 GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
 {
@@ -31,12 +32,19 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
     pgrdLayout->addWidget(lbl2, 0, 2, Qt::AlignCenter);
     pgrdLayout->addWidget(lbl3, 0, 4, Qt::AlignCenter);
 
+    srand(time(NULL));
+    int icon = 0;
+    QVector<QString> color;
+    color << "Red" << "Green" << "Blue" << "Black" << "Grey";
+
     QList<QPushButton *> *listB = new QList<QPushButton *>;
     for(int i = 1; i < 6; i++)
     {
         for(int j = 0; j < 5; j++)
         {
-            QPushButton *b = new QPushButton("test");
+            QPushButton *b = new QPushButton();
+            icon = rand() % 5;
+            b->setIcon(QPixmap(":/" + color[icon] + ".jpg"));
             pgrdLayout->addWidget(b, i, j);
             listB->append(b);
         }
