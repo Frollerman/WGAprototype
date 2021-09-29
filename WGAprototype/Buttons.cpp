@@ -2,6 +2,12 @@
 #include "Buttons.h"
 #include <ctime>
 
+int roll()
+{
+    srand(time(NULL));
+    int icon = 0;
+}
+
 GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
 {
     resize(500, 150);
@@ -32,8 +38,8 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
     pgrdLayout->addWidget(lbl2, 0, 2, Qt::AlignCenter);
     pgrdLayout->addWidget(lbl3, 0, 4, Qt::AlignCenter);
 
-    srand(time(NULL));
-    int icon = 0;
+//    srand(time(NULL));
+//    int icon = 0;
 
 //    QVector<QString> color;
 //    color << "Red" << "Green" << "Blue" << "Black" << "Grey";
@@ -50,6 +56,33 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
         //ix[i]->load(imgstr[i]);
     }
 
+    int arrB[5][5];
+    int red = 0;
+    int green = 0;
+    int blue = 0;
+
+    //Filling matrix with color blocks
+    for(int i = 0; i < 5; i++)
+    {
+        for(int j = 0; j < 5; j++)
+        {
+            icon = rand() % 3;
+            arrB[i][j] = icon;
+        }
+    }
+
+    //Black blocks in matrix
+    for (int i = 0; i < 5; i+=2)
+    {
+        arrB[i][1] = arrB[i][3] = 3;
+    }
+
+    //Grey free blocks in matrix
+    for (int i = 1; i < 5; i+=2)
+    {
+        arrB[i][1] = arrB[i][3] = 4;
+    }
+
 //    for(int i = 0; i < 5; i++)
 //    {
 //        qDebug() << *pix[i];
@@ -57,8 +90,6 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
 
 
     QVector<QPushButton *> *vecB = new QVector<QPushButton *>;
-
-    int arrB[5][5];
 
     for(int i = 1; i < 6; i++)
     {
@@ -74,18 +105,6 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
             pgrdLayout->addWidget(b, i, j);
             vecB->append(b);
         }
-    }
-
-    //Black blocks in matrix
-    for (int i = 0; i < 5; i+=2)
-    {
-        arrB[i][1] = arrB[i][3] = 3;
-    }
-
-    //Grey free blocks in matrix
-    for (int i = 1; i < 5; i+=2)
-    {
-        arrB[i][1] = arrB[i][3] = 4;
     }
 
     for (int i = 0; i < 5; i++)
