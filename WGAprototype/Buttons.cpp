@@ -34,9 +34,16 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
     pgrdLayout->setContentsMargins(5, 5, 5, 5);
     pgrdLayout->setSpacing(5);
 
-    QLabel* lbl1 = new QLabel("Red");
-    QLabel* lbl2 = new QLabel("Green");
-    QLabel* lbl3 = new QLabel("Blue");
+    QLabel* lbl1 = new QLabel("");
+    QLabel* lbl2 = new QLabel("");
+    QLabel* lbl3 = new QLabel("");
+
+    QPixmap *redPix = new QPixmap(":/Red.jpg");
+    lbl1->setPixmap(*redPix);
+    QPixmap *greenPix = new QPixmap(":/Green.jpg");
+    lbl2->setPixmap(*greenPix);
+    QPixmap *bluePix = new QPixmap(":/Blue.jpg");
+    lbl3->setPixmap(*bluePix);
 
     pgrdLayout->addWidget(lbl1, 0, 0, Qt::AlignCenter);
     pgrdLayout->addWidget(lbl2, 0, 2, Qt::AlignCenter);
