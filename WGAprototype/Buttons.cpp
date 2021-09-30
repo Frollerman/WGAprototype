@@ -2,11 +2,13 @@
 #include "Buttons.h"
 #include <ctime>
 
-int roll()
-{
-    srand(time(NULL));
-    int icon = 0;
-}
+//int roll()
+//{
+//    int icon = rand() % 3;
+//    return icon;
+//}
+
+//void check(int& red, int& green, int& blue, int arrB[][5]);
 
 GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
 {
@@ -38,12 +40,6 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
     pgrdLayout->addWidget(lbl2, 0, 2, Qt::AlignCenter);
     pgrdLayout->addWidget(lbl3, 0, 4, Qt::AlignCenter);
 
-//    srand(time(NULL));
-//    int icon = 0;
-
-//    QVector<QString> color;
-//    color << "Red" << "Green" << "Blue" << "Black" << "Grey";
-
     QVector<QString> imgstr;
     imgstr << ":/Red.jpg" << ":/Green.jpg" << ":/Blue.jpg" << ":/Black" << ":/Grey";
 
@@ -53,23 +49,51 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
     {
         QPixmap *p = new QPixmap(imgstr[i]);
         pix << p;
-        //ix[i]->load(imgstr[i]);
     }
 
+    //For randomizing
+    srand(time(NULL));
+    int icon = 0;
+
+    //Array of colors
     int arrB[5][5];
+
+    //Color count
     int red = 0;
     int green = 0;
     int blue = 0;
 
     //Filling matrix with color blocks
-    for(int i = 0; i < 5; i++)
+
+    for(int j = 0; j < 5; j+=2)
     {
-        for(int j = 0; j < 5; j++)
+        for(int i = 0; i < 5; i++)
         {
             icon = rand() % 3;
-            arrB[i][j] = icon;
+            if(red < 5 && icon == 0)
+            {
+                arrB[i][j] = icon;
+                red++;
+            }
+            else if(green < 5 && icon == 1)
+            {
+                arrB[i][j] = icon;
+                green++;
+            }
+            else if(blue < 5 && icon == 2)
+            {
+                arrB[i][j] = icon;
+                blue++;
+            }
+            else
+            {
+                i--;
+                continue;
+            }
         }
     }
+
+    //check(red, green, blue, arrB);
 
     //Black blocks in matrix
     for (int i = 0; i < 5; i+=2)
@@ -83,30 +107,7 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
         arrB[i][1] = arrB[i][3] = 4;
     }
 
-//    for(int i = 0; i < 5; i++)
-//    {
-//        qDebug() << *pix[i];
-//    }
-
-
-    QVector<QPushButton *> *vecB = new QVector<QPushButton *>;
-
-    for(int i = 1; i < 6; i++)
-    {
-        for(int j = 0; j < 5; j++)
-        {
-            QPushButton *b = new QPushButton();
-            icon = rand() % 3;
-            arrB[i-1][j] = icon;
-            b->setIcon(*pix[icon]);
-            b->setIconSize(pix[icon]->size());
-            b->setFlat(true);
-            b->setCheckable(true);
-            pgrdLayout->addWidget(b, i, j);
-            vecB->append(b);
-        }
-    }
-
+    // Debug output
     for (int i = 0; i < 5; i++)
     {
         for (int j = 0; j < 5; j++)
@@ -116,44 +117,94 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
         qDebug() << Qt::endl;
     }
 
-    //Creating black blocks
-    for (int i = 1; i < 24; i+=10)
-    {
-        vecB->at(i)->setIcon(*pix[3]);
-        vecB->at(i)->setFlat(true);
-        vecB->at(i)->setCheckable(false);
 
-        vecB->at(i+2)->setIcon(*pix[3]);
-        vecB->at(i+2)->setFlat(true);
-        vecB->at(i+2)->setCheckable(false);
-    }
-
-    //Creating grey free blocks
-    for (int i = 6; i < 24; i+=10)
-    {
-        vecB->at(i)->setIcon(*pix[4]);
-        vecB->at(i)->setFlat(true);
-
-        vecB->at(i+2)->setIcon(*pix[4]);
-        vecB->at(i+2)->setFlat(true);
-    }
-
-//    vecB->at(1)->setIcon(QPixmap(":/Black.jpg"));
-//    vecB->at(3)->setIcon(QPixmap(":/Black.jpg"));
-//    vecB->at(11)->setIcon(QPixmap(":/Black.jpg"));
-//    vecB->at(13)->setIcon(QPixmap(":/Black.jpg"));
-//    vecB->at(21)->setIcon(QPixmap(":/Black.jpg"));
-//    vecB->at(23)->setIcon(QPixmap(":/Black.jpg"));
-    //int bCount = 0;
-
+//    //Filling matrix with color blocks
 //    for(int i = 0; i < 5; i++)
 //    {
 //        for(int j = 0; j < 5; j++)
 //        {
-//            listB[bCount] = new QPushButton;
-//            pgrdLayout->addWidget(listB[bCount], i, j);
-//            bCount++;
+//            icon = roll();
+//            arrB[i][j] = icon;
 //        }
+//    }
+
+//    for(int i = 0; i < 5; i++)
+//    {
+//        qDebug() << *pix[i];
+//    }
+
+    QVector<QPushButton *> *vecB = new QVector<QPushButton *>;
+
+    for(int i = 1; i < 6; i++)
+    {
+        for(int j = 0; j < 5; j++)
+        {
+            QPushButton *b = new QPushButton();
+            b->setIcon(*pix[arrB[i-1][j]]);
+            b->setIconSize(pix[arrB[i-1][j]]->size());
+            b->setFlat(true);
+            b->setCheckable(true);
+            pgrdLayout->addWidget(b, i, j);
+            vecB->append(b);
+        }
+    }
+
+//    QVector<QPushButton *> *vecB = new QVector<QPushButton *>;
+
+//    for(int j = 0; j < 5; j+=2)
+//    {
+//        for(int i = 1; i < 6; i++)
+//        {
+//            QPushButton *b = new QPushButton();
+//            icon = roll();
+//            arrB[i-1][j] = icon;
+//            b->setIcon(*pix[icon]);
+//            b->setIconSize(pix[icon]->size());
+//            b->setFlat(true);
+//            b->setCheckable(true);
+//            pgrdLayout->addWidget(b, i, j);
+//            vecB->append(b);
+//        }
+//    }
+
+//    for(int i = 1; i < 6; i++)
+//    {
+//        for(int j = 0; j < 5; j++)
+//        {
+//            QPushButton *b = new QPushButton();
+//            icon = roll();
+//            arrB[i-1][j] = icon;
+//            b->setIcon(*pix[icon]);
+//            b->setIconSize(pix[icon]->size());
+//            b->setFlat(true);
+//            b->setCheckable(true);
+//            pgrdLayout->addWidget(b, i, j);
+//            vecB->append(b);
+//        }
+//    }
+
+//    //Creating black blocks
+//    for (int i = 1; i < 24; i+=10)
+//    {
+//        vecB->at(i)->setIcon(*pix[3]);
+//        vecB->at(i)->setFlat(true);
+//        vecB->at(i)->setCheckable(false);
+
+//        vecB->at(i+2)->setIcon(*pix[3]);
+//        vecB->at(i+2)->setFlat(true);
+//        vecB->at(i+2)->setCheckable(false);
+//    }
+
+//    //Creating grey free blocks
+//    for (int i = 6; i < 24; i+=10)
+//    {
+//        vecB->at(i)->setIcon(*pix[4]);
+//        vecB->at(i)->setFlat(true);
+//        vecB->at(i)->setCheckable(false);
+
+//        vecB->at(i+2)->setIcon(*pix[4]);
+//        vecB->at(i+2)->setFlat(true);
+//        vecB->at(i+2)->setCheckable(false);
 //    }
 
 //    QPushButton* bArr[15];
@@ -195,4 +246,86 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
 //        pal.setColor(backgroundRole(), QColor(Qt::blue).lighter(nLight));
 //    }
 //    setPalette(pal);
+//}
+
+//void check(int& red, int& green, int& blue, int arrB[][5])
+//{
+//    while(red > 5 || green > 5 || blue > 5)
+//    {
+//        //Checking if there are more than 5 blocks of each color
+//        if(red > 5)
+//        {
+//            for(int j = 0; j < 5; j+=2)
+//            {
+//                for(int i = 0; i < 5; i++)
+//                {
+//                    // if red
+//                    if(arrB[i][j] == 0 && green < 5)
+//                    {
+//                        arrB[i][j] = 1;
+//                        --red;
+//                        ++green;
+//                        break;
+//                    }
+//                    if(arrB[i][j] == 0 && blue < 5)
+//                    {
+//                        arrB[i][j] = 2;
+//                        --red;
+//                        ++blue;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+
+//        if(green > 5)
+//        {
+//            for(int j = 0; j < 5; j+=2)
+//            {
+//                for(int i = 0; i < 5; i++)
+//                {
+//                    // if green
+//                    if(arrB[i][j] == 1 && red < 5)
+//                    {
+//                        arrB[i][j] = 0;
+//                        --green;
+//                        ++red;
+//                        break;
+//                    }
+//                    if(arrB[i][j] == 1 && blue < 5)
+//                    {
+//                        arrB[i][j] = 2;
+//                        --green;
+//                        ++blue;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+
+//        if(blue > 5)
+//        {
+//            for(int j = 0; j < 5; j+=2)
+//            {
+//                for(int i = 0; i < 5; i++)
+//                {
+//                    // if blue
+//                    if(arrB[i][j] == 2 && red < 5)
+//                    {
+//                        arrB[i][j] = 0;
+//                        --blue;
+//                        ++red;
+//                        break;
+//                    }
+//                    if(arrB[i][j] == 2 && green < 5)
+//                    {
+//                        arrB[i][j] = 1;
+//                        --blue;
+//                        ++green;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//    }
 //}
