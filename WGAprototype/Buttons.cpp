@@ -6,6 +6,9 @@ void matrixInit(int& icon, int& red, int& green, int& blue, int arrB[][5]);
 
 //void check(int& red, int& green, int& blue, int arrB[][5]);
 
+bool color_checked;
+coord colorButtonPos;
+
 //Array of blocks
 int arrB[5][5];
 
@@ -66,79 +69,93 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
         qDebug() << Qt::endl;
     }
 
-//    /*QVector<QPushButton*> **/vec_redB = new QVector<QPushButton*>;
-//    /*QVector<QPushButton*> **/vec_greenB = new QVector<QPushButton*>;
-//    /*QVector<QPushButton*> **/vec_blueB = new QVector<QPushButton*>;
-//    /*QVector<QPushButton*> **/vec_blockB = new QVector<QPushButton*>;
-//    /*QVector<QPushButton*> **/vec_freeB = new QVector<QPushButton*>;
+//    vec_redB = new QVector<QPushButton*>;
+//    vec_greenB = new QVector<QPushButton*>;
+//    vec_blueB = new QVector<QPushButton*>;
+//    vec_blockB = new QVector<QPushButton*>;
+//    vec_freeB = new QVector<QPushButton*>;
 
-    /*QVector<QPushButton*> **/map_redB = new QMultiMap<QPushButton*, coord>;
-    /*QVector<QPushButton*> **/map_greenB = new QMultiMap<QPushButton*, coord>;
-    /*QVector<QPushButton*> **/map_blueB = new QMultiMap<QPushButton*, coord>;
-    /*QVector<QPushButton*> **/map_blockB = new QMultiMap<QPushButton*, coord>;
-    /*QVector<QPushButton*> **/map_freeB = new QMultiMap<QPushButton*, coord>;
+//    coordRed = new QVector<coord>;
+//    coordGreen = new QVector<coord>;
+//    coordBlue = new QVector<coord>;
+//    coordBlock = new QVector<coord>;
+//    coordFree = new QVector<coord>;
+
+//    map_redB = new QMultiMap<QPushButton*, coord>;
+//    map_greenB = new QMultiMap<QPushButton*, coord>;
+//    map_blueB = new QMultiMap<QPushButton*, coord>;
+//    map_blockB = new QMultiMap<QPushButton*, coord>;
+//    map_freeB = new QMultiMap<QPushButton*, coord>;
 
     //Adding buttons
     for(int i = 1; i < 6; i++)
     {
         for(int j = 0; j < 5; j++)
         {
-            QPushButton *b = new QPushButton();
+            PlayButton *b = new PlayButton();
             b->setIcon(*pix[arrB[i-1][j]]);
             b->setIconSize(pix[arrB[i-1][j]]->size());
             b->setFlat(true);
-            coord pair;
+            b->pos.i = i-1;
+            b->pos.j = j;
             switch(arrB[i-1][j])
             {
                 case 0:
                 {
                     b->setCheckable(true);
+                    b->color = "Red";
+                    b->colorNum = 0;
                     connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
 //                    vec_redB->append(b);
-                    pair.i = i-1;
-                    pair.j = j;
-                    map_redB->insert(b, pair);
+//                    coordRed->append(pair);
+//                    map_redB->insert(b, pair);
                     pgrdLayout->addWidget(b, i, j);
                     break;
                 }
                 case 1:
                 {
                     b->setCheckable(true);
-                    connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));             
+                    b->color = "Green";
+                    b->colorNum = 1;
+                    connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
 //                    vec_greenB->append(b);
-                    pair.i = i-1;
-                    pair.j = j;
-                    map_greenB->insert(b, pair);
+//                    coordGreen->append(pair);
+//                    map_greenB->insert(b, pair);
                     pgrdLayout->addWidget(b, i, j);
                     break;
                 }
                 case 2:
                 {
                     b->setCheckable(true);
+                    b->color = "Blue";
+                    b->colorNum = 2;
                     connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
 //                    vec_blueB->append(b);
-                    pair.i = i-1;
-                    pair.j = j;
-                    map_blueB->insert(b, pair);
+//                    coordBlue->append(pair);
+//                    map_blueB->insert(b, pair);
                     pgrdLayout->addWidget(b, i, j);
                     break;
                 }
                 case 3:
                 {
                     b->setCheckable(false);
-                    pair.i = i-1;
-                    pair.j = j;
-                    map_blockB->insert(b, pair);
+                    b->color = "Black";
+                    b->colorNum = 3;
+//                    vec_blockB->append(b);
+//                    coordBlock->append(pair);
+//                    map_blockB->insert(b, pair);
                     pgrdLayout->addWidget(b, i, j);
                     break;
                 }
                 case 4:
                 {
                     b->setCheckable(false);
+                    b->color = "Grey";
+                    b->colorNum = 4;
                     connect(b, SIGNAL(clicked()), SLOT(slotFreeButtonClicked()));
-                    pair.i = i-1;
-                    pair.j = j;
-                    map_freeB->insert(b, pair);
+//                    vec_freeB->append(b);
+//                    coordFree->append(pair);
+//                    map_freeB->insert(b, pair);
                     pgrdLayout->addWidget(b, i, j);
                     break;
                 }
@@ -197,29 +214,42 @@ void matrixInit(int &icon, int &red, int &green, int &blue, int arrB[][5])
     }
 }
 
-void GameButtons::slotColorButtonClicked()
+void PlayButton::slotColorButtonClicked()
 {
-    //if(map_redB->)
-//    QPalette pal = palette();
-//    int nLight = 150;
-//    if(vec_redB[0]->isChecked())
-//    {
-//        pal.setColor(backgroundRole(), QColor(Qt::red).lighter(nLight));
-//    }
-//    else if(m_greenB->isChecked())
-//    {
-//        pal.setColor(backgroundRole(), QColor(Qt::green).lighter(nLight));
-//    }
-//    else
-//    {
-//        pal.setColor(backgroundRole(), QColor(Qt::blue).lighter(nLight));
-//    }
-//    setPalette(pal);
+    if(this->colorNum == 0 && color_checked == false)
+    {
+        this->isChecked();
+        color_checked = true;
+        colorButtonPos = this->pos;
+    }
+    else if(this->colorNum == 1 && color_checked == false)
+    {
+        this->isChecked();
+        color_checked = true;
+        colorButtonPos = this->pos;
+    }
+    else if(this->colorNum == 2 && color_checked == false)
+    {
+        this->isChecked();
+        color_checked = true;
+        colorButtonPos = this->pos;
+    }
+    else
+    {
+        color_checked = false;
+    }
+
 }
 
-void GameButtons::slotFreeButtonClicked()
+void PlayButton::slotFreeButtonClicked()
 {
-
+    if(color_checked)
+    {
+        coord temp;
+        temp = this->pos;
+        this->pos = colorButtonPos;
+        colorButtonPos = temp;
+    }
 }
 
 //void check(int& red, int& green, int& blue, int arrB[][5])

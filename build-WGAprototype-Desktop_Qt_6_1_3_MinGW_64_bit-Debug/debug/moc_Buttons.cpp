@@ -22,25 +22,93 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_GameButtons_t {
-    const uint offsetsAndSize[8];
-    char stringdata0[58];
+    const uint offsetsAndSize[2];
+    char stringdata0[12];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_GameButtons_t, stringdata0) + ofs), len 
 static const qt_meta_stringdata_GameButtons_t qt_meta_stringdata_GameButtons = {
     {
-QT_MOC_LITERAL(0, 11), // "GameButtons"
-QT_MOC_LITERAL(12, 22), // "slotColorButtonClicked"
-QT_MOC_LITERAL(35, 0), // ""
-QT_MOC_LITERAL(36, 21) // "slotFreeButtonClicked"
+QT_MOC_LITERAL(0, 11) // "GameButtons"
 
     },
-    "GameButtons\0slotColorButtonClicked\0\0"
-    "slotFreeButtonClicked"
+    "GameButtons"
 };
 #undef QT_MOC_LITERAL
 
 static const uint qt_meta_data_GameButtons[] = {
+
+ // content:
+       9,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
+
+       0        // eod
+};
+
+void GameButtons::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    (void)_o;
+    (void)_id;
+    (void)_c;
+    (void)_a;
+}
+
+const QMetaObject GameButtons::staticMetaObject = { {
+    QMetaObject::SuperData::link<QPushButton::staticMetaObject>(),
+    qt_meta_stringdata_GameButtons.offsetsAndSize,
+    qt_meta_data_GameButtons,
+    qt_static_metacall,
+    nullptr,
+    nullptr,
+    nullptr
+} };
+
+
+const QMetaObject *GameButtons::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *GameButtons::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_GameButtons.stringdata0))
+        return static_cast<void*>(this);
+    return QPushButton::qt_metacast(_clname);
+}
+
+int GameButtons::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = QPushButton::qt_metacall(_c, _id, _a);
+    return _id;
+}
+struct qt_meta_stringdata_PlayButton_t {
+    const uint offsetsAndSize[8];
+    char stringdata0[57];
+};
+#define QT_MOC_LITERAL(ofs, len) \
+    uint(offsetof(qt_meta_stringdata_PlayButton_t, stringdata0) + ofs), len 
+static const qt_meta_stringdata_PlayButton_t qt_meta_stringdata_PlayButton = {
+    {
+QT_MOC_LITERAL(0, 10), // "PlayButton"
+QT_MOC_LITERAL(11, 22), // "slotColorButtonClicked"
+QT_MOC_LITERAL(34, 0), // ""
+QT_MOC_LITERAL(35, 21) // "slotFreeButtonClicked"
+
+    },
+    "PlayButton\0slotColorButtonClicked\0\0"
+    "slotFreeButtonClicked"
+};
+#undef QT_MOC_LITERAL
+
+static const uint qt_meta_data_PlayButton[] = {
 
  // content:
        9,       // revision
@@ -64,10 +132,10 @@ static const uint qt_meta_data_GameButtons[] = {
        0        // eod
 };
 
-void GameButtons::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void PlayButton::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<GameButtons *>(_o);
+        auto *_t = static_cast<PlayButton *>(_o);
         (void)_t;
         switch (_id) {
         case 0: _t->slotColorButtonClicked(); break;
@@ -78,13 +146,13 @@ void GameButtons::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     (void)_a;
 }
 
-const QMetaObject GameButtons::staticMetaObject = { {
+const QMetaObject PlayButton::staticMetaObject = { {
     QMetaObject::SuperData::link<QPushButton::staticMetaObject>(),
-    qt_meta_stringdata_GameButtons.offsetsAndSize,
-    qt_meta_data_GameButtons,
+    qt_meta_stringdata_PlayButton.offsetsAndSize,
+    qt_meta_data_PlayButton,
     qt_static_metacall,
     nullptr,
-qt_incomplete_metaTypeArray<qt_meta_stringdata_GameButtons_t
+qt_incomplete_metaTypeArray<qt_meta_stringdata_PlayButton_t
 
 , QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
 
@@ -94,20 +162,20 @@ qt_incomplete_metaTypeArray<qt_meta_stringdata_GameButtons_t
 } };
 
 
-const QMetaObject *GameButtons::metaObject() const
+const QMetaObject *PlayButton::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *GameButtons::qt_metacast(const char *_clname)
+void *PlayButton::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_GameButtons.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_PlayButton.stringdata0))
         return static_cast<void*>(this);
     return QPushButton::qt_metacast(_clname);
 }
 
-int GameButtons::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int PlayButton::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QPushButton::qt_metacall(_c, _id, _a);
     if (_id < 0)
