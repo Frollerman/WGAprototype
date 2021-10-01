@@ -4,6 +4,11 @@
 #include <QPushButton>
 
 class GameButtons;
+struct coord
+{
+    int i;
+    int j;
+};
 
 // ==========================================
 
@@ -11,11 +16,17 @@ class GameButtons : public QPushButton
 {
     Q_OBJECT
 private:
-    QVector<QPushButton*> *vec_redB;
-    QVector<QPushButton*> *vec_greenB;
-    QVector<QPushButton*> *vec_blueB;
-    QVector<QPushButton*> *vec_blockB;
-    QVector<QPushButton*> *vec_freeB;
+    QMultiMap<QPushButton*, coord> *map_redB;
+    QMultiMap<QPushButton*, coord> *map_greenB;
+    QMultiMap<QPushButton*, coord> *map_blueB;
+    QMultiMap<QPushButton*, coord> *map_blockB;
+    QMultiMap<QPushButton*, coord> *map_freeB;
+
+//    QVector<QPushButton*> *vec_redB;
+//    QVector<QPushButton*> *vec_greenB;
+//    QVector<QPushButton*> *vec_blueB;
+//    QVector<QPushButton*> *vec_blockB;
+//    QVector<QPushButton*> *vec_freeB;
 
 public:
     GameButtons(QWidget* pwgt = nullptr);
