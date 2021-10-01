@@ -86,6 +86,7 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
 
     QVector<QPushButton *> *vecB = new QVector<QPushButton *>;
 
+    //Adding buttons
     for(int i = 1; i < 6; i++)
     {
         for(int j = 0; j < 5; j++)
@@ -103,8 +104,13 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
             vecB->append(b);
         }
     }
+
     QLabel* win = new QLabel("");
     pgrdLayout->addWidget(win, 6, 2, Qt::AlignCenter);
+
+    setLayout(pgrdLayout);
+
+
 
 //    //Creating black blocks
 //    for (int i = 1; i < 24; i+=10)
@@ -147,7 +153,6 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
 //    pgrdLayout->addWidget(m_greenB, 0, 1);
 //    pgrdLayout->addWidget(m_blueB, 1, 0);
 //    pgrdLayout->addWidget(pcmd, 1, 1);
-    setLayout(pgrdLayout);
 
 //    slotButtonClicked();
 }
