@@ -91,25 +91,22 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
     {
         for(int j = 0; j < 5; j++)
         {
+            QPushButton *b = new QPushButton();
+            b->setIcon(*pix[arrB[i-1][j]]);
+            b->setIconSize(pix[arrB[i-1][j]]->size());
             switch(arrB[i-1][j])
             {
                 case 0:
                 {
-                    QPushButton *b = new QPushButton();
-                    b->setIcon(*pix[arrB[i-1][j]]);
-                    b->setIconSize(pix[arrB[i-1][j]]->size());
                     b->setFlat(true);
                     b->setCheckable(true);
                     connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
-                    vec_redB->push_back(b);
+                    vec_redB->append(b);
                     pgrdLayout->addWidget(b, i, j);
                     break;
                 }
                 case 1:
                 {
-                    QPushButton *b = new QPushButton();
-                    b->setIcon(*pix[arrB[i-1][j]]);
-                    b->setIconSize(pix[arrB[i-1][j]]->size());
                     b->setFlat(true);
                     b->setCheckable(true);
                     connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
@@ -119,9 +116,6 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
                 }
                 case 2:
                 {
-                    QPushButton *b = new QPushButton();
-                    b->setIcon(*pix[arrB[i-1][j]]);
-                    b->setIconSize(pix[arrB[i-1][j]]->size());
                     b->setFlat(true);
                     b->setCheckable(true);
                     connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
@@ -131,24 +125,17 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
                 }
                 case 3:
                 {
-                    QPushButton *b = new QPushButton();
-                    b->setIcon(*pix[arrB[i-1][j]]);
-                    b->setIconSize(pix[arrB[i-1][j]]->size());
                     b->setFlat(true);
                     b->setCheckable(false);
-                    connect(b, SIGNAL(clicked()), SLOT(slotFreeButtonClicked()));
                     vec_blockB->append(b);
                     pgrdLayout->addWidget(b, i, j);
                     break;
                 }
                 case 4:
                 {
-                    QPushButton *b = new QPushButton();
-                    b->setIcon(*pix[arrB[i-1][j]]);
-                    b->setIconSize(pix[arrB[i-1][j]]->size());
                     b->setFlat(true);
                     b->setCheckable(false);
-                    connect(b, SIGNAL(clicked()), SLOT(slotFreerButtonClicked()));
+                    connect(b, SIGNAL(clicked()), SLOT(slotFreeButtonClicked()));
                     vec_freeB->append(b);
                     pgrdLayout->addWidget(b, i, j);
                     break;
@@ -247,10 +234,10 @@ void GameButtons::slotColorButtonClicked()
 //    setPalette(pal);
 }
 
-//void GameButtons::slotFreeButtonClicked()
-//{
+void GameButtons::slotFreeButtonClicked()
+{
 
-//}
+}
 
 //void check(int& red, int& green, int& blue, int arrB[][5])
 //{

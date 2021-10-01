@@ -22,7 +22,7 @@ public:
 
 public slots:
     void slotColorButtonClicked();
-//    void slotFreeButtonClicked();
+    void slotFreeButtonClicked();
 };
 
 #endif // BUTTONS_H
