@@ -2,12 +2,6 @@
 #include "Buttons.h"
 #include <ctime>
 
-//int roll()
-//{
-//    int icon = rand() % 3;
-//    return icon;
-//}
-
 void matrixInit(int& icon, int& red, int& green, int& blue, int arrB[][5]);
 
 //void check(int& red, int& green, int& blue, int arrB[][5]);
@@ -64,7 +58,7 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
     srand(time(NULL));
     int icon = 0;
 
-    //Array of colors
+    //Array of blocks
     int arrB[5][5];
 
     //Color count
@@ -84,24 +78,93 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
         qDebug() << Qt::endl;
     }
 
-    QVector<QPushButton *> *vecB = new QVector<QPushButton *>;
+    //QVector<QPushButton *> *vecB = new QVector<QPushButton *>;
+
+    QVector<QPushButton*> *vec_redB = new QVector<QPushButton*>;
+    QVector<QPushButton*> *vec_greenB = new QVector<QPushButton*>;
+    QVector<QPushButton*> *vec_blueB = new QVector<QPushButton*>;
+    QVector<QPushButton*> *vec_blockB = new QVector<QPushButton*>;
+    QVector<QPushButton*> *vec_freeB = new QVector<QPushButton*>;
 
     //Adding buttons
     for(int i = 1; i < 6; i++)
     {
         for(int j = 0; j < 5; j++)
         {
-            QPushButton *b = new QPushButton();
-            b->setIcon(*pix[arrB[i-1][j]]);
-            b->setIconSize(pix[arrB[i-1][j]]->size());
-            b->setFlat(true);
-            b->setCheckable(true);
-            if(arrB[i-1][j] == 3 || arrB[i-1][j] == 4)
+            if(arrB[i-1][j] == 0)
             {
-                b->setCheckable(false);
+                QPushButton *b = new QPushButton();
+                b->setIcon(*pix[arrB[i-1][j]]);
+                b->setIconSize(pix[arrB[i-1][j]]->size());
+                b->setFlat(true);
+                b->setCheckable(true);
+                connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
+                vec_redB->push_back(b);
+                pgrdLayout->addWidget(b, i, j);
             }
-            pgrdLayout->addWidget(b, i, j);
-            vecB->append(b);
+            if(arrB[i-1][j] == 1)
+            {
+                QPushButton *b = new QPushButton();
+                b->setIcon(*pix[arrB[i-1][j]]);
+                b->setIconSize(pix[arrB[i-1][j]]->size());
+                b->setFlat(true);
+                b->setCheckable(true);
+                connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
+                vec_greenB->append(b);
+                pgrdLayout->addWidget(b, i, j);
+            }
+            if(arrB[i-1][j] == 2)
+            {
+                QPushButton *b = new QPushButton();
+                b->setIcon(*pix[arrB[i-1][j]]);
+                b->setIconSize(pix[arrB[i-1][j]]->size());
+                b->setFlat(true);
+                b->setCheckable(true);
+                connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
+                vec_blueB->append(b);
+                pgrdLayout->addWidget(b, i, j);
+            }
+            if(arrB[i-1][j] == 3)
+            {
+                QPushButton *b = new QPushButton();
+                b->setIcon(*pix[arrB[i-1][j]]);
+                b->setIconSize(pix[arrB[i-1][j]]->size());
+                b->setFlat(true);
+                b->setCheckable(false);
+                connect(b, SIGNAL(clicked()), SLOT(slotFreeButtonClicked()));
+                vec_blockB->append(b);
+                pgrdLayout->addWidget(b, i, j);
+            }
+            if(arrB[i-1][j] == 4)
+            {
+                QPushButton *b = new QPushButton();
+                b->setIcon(*pix[arrB[i-1][j]]);
+                b->setIconSize(pix[arrB[i-1][j]]->size());
+                b->setFlat(true);
+                b->setCheckable(false);
+                connect(b, SIGNAL(clicked()), SLOT(slotFreerButtonClicked()));
+                vec_freeB->append(b);
+                pgrdLayout->addWidget(b, i, j);
+            }
+//            QPushButton *b = new QPushButton();
+//            b->setIcon(*pix[arrB[i-1][j]]);
+//            b->setIconSize(pix[arrB[i-1][j]]->size());
+//            b->setFlat(true);
+//            b->setCheckable(true);
+//            if(arrB[i-1][j] == 3 || arrB[i-1][j] == 4)
+//            {
+//                b->setCheckable(false);
+//            }
+//            if(arrB[i-1][j] == 4)
+//            {
+//                connect(b, SIGNAL(clicked()), SLOT(slotFreeButtonClicked()));
+//            }
+//            if(arrB[i-1][j] == 0 || arrB[i-1][j] == 1 || arrB[i-1][j] == 2)
+//            {
+//                connect(b, SIGNAL(clicked()), SLOT(slotColorButtonClicked()));
+//            }
+//            pgrdLayout->addWidget(b, i, j);
+//            //vecB->append(b);
         }
     }
 
@@ -109,52 +172,6 @@ GameButtons::GameButtons(QWidget* pwgt/*= 0*/) : QPushButton(pwgt)
     pgrdLayout->addWidget(win, 6, 2, Qt::AlignCenter);
 
     setLayout(pgrdLayout);
-
-
-
-//    //Creating black blocks
-//    for (int i = 1; i < 24; i+=10)
-//    {
-//        vecB->at(i)->setIcon(*pix[3]);
-//        vecB->at(i)->setFlat(true);
-//        vecB->at(i)->setCheckable(false);
-
-//        vecB->at(i+2)->setIcon(*pix[3]);
-//        vecB->at(i+2)->setFlat(true);
-//        vecB->at(i+2)->setCheckable(false);
-//    }
-
-//    //Creating grey free blocks
-//    for (int i = 6; i < 24; i+=10)
-//    {
-//        vecB->at(i)->setIcon(*pix[4]);
-//        vecB->at(i)->setFlat(true);
-//        vecB->at(i)->setCheckable(false);
-
-//        vecB->at(i+2)->setIcon(*pix[4]);
-//        vecB->at(i+2)->setFlat(true);
-//        vecB->at(i+2)->setCheckable(false);
-//    }
-
-//    QPushButton* bArr[15];
-//    int bCount = 0;
-
-//    for(int i = 0; i < 5; i++)
-//    {
-//        for(int j = 0; j < 5; j++)
-//        {
-//            bArr[bCount] = new QPushButton();
-//            pgrdLayout->addWidget(bArr[bCount], i, j);
-//            bCount++;
-//        }
-//    }
-
-//    pgrdLayout->addWidget(m_redB, 0, 0);
-//    pgrdLayout->addWidget(m_greenB, 0, 1);
-//    pgrdLayout->addWidget(m_blueB, 1, 0);
-//    pgrdLayout->addWidget(pcmd, 1, 1);
-
-//    slotButtonClicked();
 }
 
 void matrixInit(int &icon, int &red, int &green, int &blue, int arrB[][5])
@@ -201,11 +218,12 @@ void matrixInit(int &icon, int &red, int &green, int &blue, int arrB[][5])
     }
 }
 
-//void GameButtons::slotButtonClicked()
-//{
+void GameButtons::slotColorButtonClicked()
+{
+
 //    QPalette pal = palette();
 //    int nLight = 150;
-//    if(m_redB->isChecked())
+//    if(vec_redB[0]->isChecked())
 //    {
 //        pal.setColor(backgroundRole(), QColor(Qt::red).lighter(nLight));
 //    }
@@ -218,6 +236,11 @@ void matrixInit(int &icon, int &red, int &green, int &blue, int arrB[][5])
 //        pal.setColor(backgroundRole(), QColor(Qt::blue).lighter(nLight));
 //    }
 //    setPalette(pal);
+}
+
+//void GameButtons::slotFreeButtonClicked()
+//{
+
 //}
 
 //void check(int& red, int& green, int& blue, int arrB[][5])
